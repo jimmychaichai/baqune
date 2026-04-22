@@ -28,26 +28,44 @@ export default function SystemAccess() {
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.9, ease: 'easeOut' }}
+            transition={{ duration: 1, ease: [0.25, 1, 0.5, 1] }}
           >
-            <span className="section-subtitle flex items-center gap-2">
-              <Wine size={14} /> SYSTEM
+            <span className="display-latin italic text-sm tracking-widest text-champagne">
+              — pricing —
             </span>
-            <h2 className="section-title mt-3">料金体系</h2>
+            <span className="section-eyebrow mt-4">
+              <Wine size={12} /> SYSTEM
+            </span>
+            <h2 className="section-title mt-5">料金体系</h2>
 
-            <ul className="mt-10 divide-y divide-ink/10 border-y border-ink/10">
-              {PRICES.map((p) => (
-                <li
+            <ul className="mt-12 divide-y divide-ink/10 border-y border-ink/10">
+              {PRICES.map((p, idx) => (
+                <motion.li
                   key={p.label}
-                  className="flex items-center justify-between py-4 text-sm tracking-wider"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{
+                    duration: 0.8,
+                    delay: idx * 0.08,
+                    ease: 'easeOut',
+                  }}
+                  className="flex items-baseline justify-between py-5"
                 >
-                  <span className="text-ink/70">{p.label}</span>
-                  <span className="font-medium text-ink">{p.value}</span>
-                </li>
+                  <span className="text-sm tracking-widest2 text-ink/70">
+                    {p.label}
+                  </span>
+                  <span className="flex items-baseline gap-3">
+                    <span className="flex-1 h-px min-w-[40px] bg-gradient-to-r from-transparent to-champagne/50" />
+                    <span className="display-latin text-lg font-medium tracking-wider text-ink">
+                      {p.value}
+                    </span>
+                  </span>
+                </motion.li>
               ))}
             </ul>
 
-            <p className="mt-6 text-xs leading-relaxed text-ink/50">
+            <p className="mt-6 text-[11px] leading-[2] tracking-wider text-ink/45">
               ※ 表示価格はすべて税込です。
               チャージにはお通しが含まれます。
             </p>
@@ -58,36 +76,52 @@ export default function SystemAccess() {
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.9, delay: 0.15, ease: 'easeOut' }}
+            transition={{ duration: 1, delay: 0.15, ease: [0.25, 1, 0.5, 1] }}
           >
-            <span className="section-subtitle flex items-center gap-2">
-              <Clock size={14} /> HOURS
+            <span className="display-latin italic text-sm tracking-widest text-champagne">
+              — opening hours —
             </span>
-            <h2 className="section-title mt-3">営業時間</h2>
+            <span className="section-eyebrow mt-4">
+              <Clock size={12} /> HOURS
+            </span>
+            <h2 className="section-title mt-5">営業時間</h2>
 
-            <ul className="mt-10 space-y-4">
-              {HOURS.map((h) => (
-                <li
+            <ul className="mt-12 space-y-4">
+              {HOURS.map((h, idx) => (
+                <motion.li
                   key={h.day}
-                  className="flex items-center justify-between rounded-2xl border border-ink/10 bg-white px-6 py-4 text-sm tracking-widest2 shadow-[0_4px_24px_-20px_rgba(157,78,221,0.5)]"
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{
+                    duration: 0.8,
+                    delay: idx * 0.08,
+                    ease: 'easeOut',
+                  }}
+                  className="group relative overflow-hidden rounded-2xl border border-ink/10 bg-cream px-6 py-4 shadow-[0_4px_24px_-20px_rgba(27,16,25,0.4)] transition-all duration-500 hover:border-champagne/60 hover:shadow-gold"
                 >
-                  <span className="text-ink/70">{h.day}</span>
-                  <span
-                    className={
-                      h.time === 'CLOSED'
-                        ? 'text-ink/30'
-                        : 'neon-text font-medium'
-                    }
-                  >
-                    {h.time}
-                  </span>
-                </li>
+                  <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-champagne/10 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
+                  <div className="relative flex items-center justify-between text-sm tracking-widest2">
+                    <span className="display-latin font-medium text-ink/70">
+                      {h.day}
+                    </span>
+                    <span
+                      className={`display ${
+                        h.time === 'CLOSED'
+                          ? 'text-ink/30'
+                          : 'neon-text font-medium'
+                      }`}
+                    >
+                      {h.time}
+                    </span>
+                  </div>
+                </motion.li>
               ))}
             </ul>
 
             <a
               href="tel:+81000000000"
-              className="mt-10 inline-flex items-center gap-2 text-xs tracking-widest2 text-ink/60 underline-offset-8 hover:text-neon-pink hover:underline"
+              className="mt-10 inline-flex items-center gap-2 display-latin italic text-sm tracking-widest text-ink/60 underline-offset-8 hover:text-champagne hover:underline"
             >
               <Phone size={14} /> 03-0000-0000
             </a>
@@ -98,21 +132,24 @@ export default function SystemAccess() {
       {/* ACCESS */}
       <section
         id="access"
-        className="relative bg-gradient-to-b from-white via-paper to-white py-28 px-6 md:py-36"
+        className="relative bg-ivory-radial py-28 px-6 md:py-36"
       >
         <div className="mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.9, ease: 'easeOut' }}
-            className="mb-12 flex flex-col items-center text-center"
+            transition={{ duration: 1, ease: [0.25, 1, 0.5, 1] }}
+            className="mb-16 flex flex-col items-center text-center"
           >
-            <span className="section-subtitle flex items-center gap-2">
-              <MapPin size={14} /> ACCESS
+            <span className="display-latin italic text-sm tracking-widest text-champagne">
+              — access —
             </span>
-            <h2 className="section-title mt-3">アクセス</h2>
-            <p className="mt-6 max-w-md text-sm leading-loose tracking-wider text-ink/60">
+            <span className="section-eyebrow mt-4">
+              <MapPin size={12} /> ACCESS
+            </span>
+            <h2 className="section-title gold-underline mt-5">アクセス</h2>
+            <p className="mt-10 max-w-md text-[13px] leading-[2.2] tracking-wider text-ink/60">
               新宿御苑前駅より徒歩3分。
               路地の奥、ピンクのネオンが目印です。
             </p>
@@ -122,43 +159,44 @@ export default function SystemAccess() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 1, ease: 'easeOut' }}
+            transition={{ duration: 1.1, ease: [0.25, 1, 0.5, 1] }}
             className="grid gap-10 md:grid-cols-5"
           >
-            {/* Map placeholder with atmospheric photo */}
-            <div className="md:col-span-3 relative overflow-hidden rounded-3xl border border-ink/10 shadow-[0_20px_60px_-30px_rgba(157,78,221,0.5)]">
+            <div className="md:col-span-3 relative overflow-hidden rounded-3xl border border-champagne/30 shadow-luxe">
               <div className="relative aspect-[4/3] w-full">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1400&q=80&auto=format&fit=crop"
                   alt="BAR interior"
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[2.5s] hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-neon-pink/30 via-ink/40 to-neon-purple/40 mix-blend-multiply" />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-br from-neon-pink/25 via-ink/50 to-neon-purple/35 mix-blend-multiply" />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-transparent to-transparent" />
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
                   <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-neon-gradient shadow-neon">
-                    <MapPin className="text-white" size={24} />
+                    <MapPin className="text-white" size={22} />
                   </div>
-                  <p className="mt-3 text-xs tracking-widest2 text-white/80">
-                    Google Map は公開時に埋め込み
+                  <p className="display-latin mt-3 italic text-[11px] tracking-widest text-white/80">
+                    google map will be embedded here
                   </p>
                 </div>
-                <div className="absolute bottom-5 left-6 text-white/90">
-                  <p className="text-[10px] tracking-widest2">SHINJUKU GYOEN</p>
-                  <p className="text-lg font-light tracking-widest2">
+                <div className="absolute bottom-6 left-7 text-white/90">
+                  <p className="display-latin italic text-[10px] tracking-widest text-champagne-light">
+                    shinjuku gyoen
+                  </p>
+                  <p className="display mt-1 text-lg font-normal tracking-widest2">
                     BAR ズキュン
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="md:col-span-2 flex flex-col justify-center space-y-6">
+            <div className="md:col-span-2 flex flex-col justify-center space-y-8">
               <div>
-                <span className="text-[10px] tracking-widest2 text-neon-pink">
-                  ADDRESS
+                <span className="display-latin italic text-xs tracking-widest text-champagne">
+                  address
                 </span>
-                <p className="mt-2 text-sm leading-loose tracking-wider text-ink/80">
+                <p className="mt-2 text-sm leading-[2] tracking-wider text-ink/80">
                   〒160-0022
                   <br />
                   東京都新宿区新宿1-0-0
@@ -167,10 +205,10 @@ export default function SystemAccess() {
                 </p>
               </div>
               <div>
-                <span className="text-[10px] tracking-widest2 text-neon-pink">
-                  TRAIN
+                <span className="display-latin italic text-xs tracking-widest text-champagne">
+                  train
                 </span>
-                <p className="mt-2 text-sm leading-loose tracking-wider text-ink/80">
+                <p className="mt-2 text-sm leading-[2] tracking-wider text-ink/80">
                   東京メトロ丸ノ内線「新宿御苑前」駅 より徒歩3分
                   <br />
                   都営新宿線「新宿三丁目」駅 より徒歩7分
@@ -180,9 +218,10 @@ export default function SystemAccess() {
                 href="https://maps.google.com/"
                 target="_blank"
                 rel="noreferrer"
-                className="neon-button w-fit"
+                className="gold-button w-fit"
               >
-                GOOGLE MAPS
+                <span>Google Maps</span>
+                <span aria-hidden>→</span>
               </a>
             </div>
           </motion.div>

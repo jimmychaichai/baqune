@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --foreground: #1a1220;
-  --background: #fafafa;
+  --foreground: #1b1019;
+  --background: #f8f4ee;
 }
 
 html {
@@ -19,8 +19,9 @@ body {
 }
 
 @layer components {
+  /* refined neon/gold hybrid button */
   .neon-button {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-full border border-neon-pink/60 bg-white px-8 py-3 text-sm font-medium tracking-widest text-ink transition-all duration-300;
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full border border-ink/15 bg-cream px-9 py-3.5 text-[11px] font-normal uppercase tracking-widest3 text-ink transition-all duration-500;
   }
 
   .neon-button::before {
@@ -28,10 +29,24 @@ body {
     position: absolute;
     inset: 0;
     border-radius: 9999px;
-    background: linear-gradient(135deg, #ff4fb8 0%, #9d4edd 100%);
+    background: linear-gradient(135deg, #ff4fb8 0%, #9d4edd 60%, #5b2236 100%);
     opacity: 0;
-    transition: opacity 300ms ease;
+    transition: opacity 500ms ease;
     z-index: -1;
+  }
+
+  .neon-button::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 9999px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(232, 217, 184, 0.9), rgba(201, 168, 118, 0.1), rgba(232, 217, 184, 0.9));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 500ms ease;
   }
 
   .neon-button:hover {
@@ -42,19 +57,71 @@ body {
     opacity: 1;
   }
 
+  /* gold variant */
+  .gold-button {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full bg-cream px-9 py-3.5 text-[11px] font-normal uppercase tracking-widest3 text-ink transition-all duration-500;
+    background-image: linear-gradient(#fdfaf5, #fdfaf5),
+      linear-gradient(135deg, #e8d9b8, #c9a876, #8f7446);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    border: 1px solid transparent;
+  }
+  .gold-button:hover {
+    @apply shadow-gold;
+  }
+
   .neon-text {
-    background: linear-gradient(135deg, #ff4fb8 0%, #9d4edd 100%);
+    background: linear-gradient(135deg, #ff4fb8 0%, #9d4edd 60%, #5b2236 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  .section-title {
-    @apply text-3xl md:text-4xl font-light tracking-widest2 text-ink;
+  .gold-text {
+    background: linear-gradient(135deg, #e8d9b8 0%, #c9a876 50%, #8f7446 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
-  .section-subtitle {
-    @apply text-xs md:text-sm tracking-widest2 uppercase text-neon-pink;
+  /* Latin italic serif accent — used for small labels like "news", "access" */
+  .accent-latin {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+  }
+
+  .section-eyebrow {
+    @apply flex items-center gap-3 text-[11px] uppercase tracking-widest3 text-mauve-500;
+  }
+
+  .section-title {
+    font-family: 'Shippori Mincho B1', 'Noto Serif JP', serif;
+    @apply text-[28px] md:text-[40px] font-normal tracking-widest2 text-ink leading-[1.35];
+  }
+
+  .display {
+    font-family: 'Shippori Mincho B1', 'Noto Serif JP', serif;
+  }
+
+  .display-latin {
+    font-family: 'Cormorant Garamond', 'Shippori Mincho B1', serif;
+  }
+
+  /* gold shimmer divider */
+  .divider-shimmer {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(201, 168, 118, 0) 10%,
+      rgba(201, 168, 118, 0.8) 50%,
+      rgba(201, 168, 118, 0) 90%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 6s linear infinite;
   }
 
   .arch {
@@ -63,10 +130,28 @@ body {
     border-bottom-left-radius: 18px;
     border-bottom-right-radius: 18px;
   }
+
+  /* gold-foil hairline underline */
+  .gold-underline {
+    position: relative;
+  }
+  .gold-underline::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    width: 48px;
+    height: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, transparent, #c9a876, transparent);
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .tracking-widest3 {
+    letter-spacing: 0.35em;
   }
 }
