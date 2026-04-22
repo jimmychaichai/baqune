@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground: #1a1220;
+  --background: #fafafa;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-feature-settings: 'palt';
+  letter-spacing: 0.04em;
+}
+
+@layer components {
+  .neon-button {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full border border-neon-pink/60 bg-white px-8 py-3 text-sm font-medium tracking-widest text-ink transition-all duration-300;
+  }
+
+  .neon-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #ff4fb8 0%, #9d4edd 100%);
+    opacity: 0;
+    transition: opacity 300ms ease;
+    z-index: -1;
+  }
+
+  .neon-button:hover {
+    @apply border-transparent text-white shadow-neon;
+  }
+
+  .neon-button:hover::before {
+    opacity: 1;
+  }
+
+  .neon-text {
+    background: linear-gradient(135deg, #ff4fb8 0%, #9d4edd 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-light tracking-widest2 text-ink;
+  }
+
+  .section-subtitle {
+    @apply text-xs md:text-sm tracking-widest2 uppercase text-neon-pink;
+  }
+
+  .arch {
+    border-top-left-radius: 9999px;
+    border-top-right-radius: 9999px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
